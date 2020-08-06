@@ -5,14 +5,15 @@ class ClampedNormalDistribution {
 	ClampedNormalDistribution() = default;
 	ClampedNormalDistribution(double fixed);
 	ClampedNormalDistribution(double min, double max, double mean, double stddev);
+	void setFixed(double fixed);
 	void setParam(double min, double max, double mean, double stddev);
+	
 	//we can not copy a random number generator. so just recreate
-	void operator=(const ClampedNormalDistribution& from) {
-		this->setParam(from.min, from.max, from.mean, from.stddev);
-	}
-	ClampedNormalDistribution(const ClampedNormalDistribution& from) {
-		this->setParam(from.min, from.max, from.mean, from.stddev);
-	}
+	///It should have just been easier to move around a shared_ptr...
+	///but what about using the rng in multithreading ?
+	void operator=(const ClampedNormalDistribution& from);
+	ClampedNormalDistribution(const ClampedNormalDistribution& from);
+	
 	double gen() const;
 
       private:

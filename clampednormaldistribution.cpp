@@ -1,24 +1,41 @@
 #include "clampednormaldistribution.h"
 
 ClampedNormalDistribution::ClampedNormalDistribution(double fixed) {
-	this->fixed = fixed;
-	primed      = true;
+	setFixed(fixed);
 }
 
 ClampedNormalDistribution::ClampedNormalDistribution(double min, double max, double mean, double stddev) {
 	setParam(min, max, mean, stddev);
 }
 
+void ClampedNormalDistribution::setFixed(double fixed) {
+	this->fixed = fixed;
+	primed      = true;
+}
+
 void ClampedNormalDistribution::setParam(double min, double max, double mean, double stddev) {
 	primed       = true;
-	distribution            = std::normal_distribution<>{mean, stddev};
+	distribution = std::normal_distribution<>{mean, stddev};
 	this->min    = min;
 	this->max    = max;
 	this->mean   = mean;
 	this->stddev = stddev;
 }
 
-double ClampedNormalDistribution::gen() const{
+void ClampedNormalDistribution::operator=(const ClampedNormalDistribution& from) {
+	if (from.fixed) {
+		setFixed(from.fixed);
+		return;
+	}
+	this->setParam(from.min, from.max, from.mean, from.stddev);
+}
+
+ClampedNormalDistribution::ClampedNormalDistribution(const ClampedNormalDistribution& from) {
+	*this = from;
+	//this->setParam(from.min, from.max, from.mean, from.stddev);
+}
+
+double ClampedNormalDistribution::gen() const {
 	if (!primed) {
 		throw "Revenue Share not set";
 	}
