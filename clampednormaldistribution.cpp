@@ -1,5 +1,5 @@
 #include "clampednormaldistribution.h"
-
+#include <chrono>
 ClampedNormalDistribution::ClampedNormalDistribution(double fixed) {
 	setFixed(fixed);
 }
@@ -14,8 +14,10 @@ void ClampedNormalDistribution::setFixed(double fixed) {
 }
 
 void ClampedNormalDistribution::setParam(double min, double max, double mean, double stddev) {
-	primed       = true;
-	distribution = std::normal_distribution<>{mean, stddev};
+	primed        = true;
+	distribution  = std::normal_distribution<>{mean, stddev};
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator.seed(seed);
 	this->min    = min;
 	this->max    = max;
 	this->mean   = mean;
