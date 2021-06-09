@@ -4,7 +4,7 @@ class ClampedNormalDistribution {
       public:
 	ClampedNormalDistribution() = default;
 	ClampedNormalDistribution(double fixed);
-	ClampedNormalDistribution(double _min, double _max, double _mean, double stddev);
+	ClampedNormalDistribution(double _min, double _max, double _mean, double _stddev);
 	void setFixed(double _fixed);
 	void setParam(double _min, double _max, double _mean, double _stddev);
 
