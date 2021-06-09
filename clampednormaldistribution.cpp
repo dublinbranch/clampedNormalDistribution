@@ -1,7 +1,7 @@
 #include "clampednormaldistribution.h"
 #include <chrono>
-ClampedNormalDistribution::ClampedNormalDistribution(double fixed) {
-	setFixed(fixed);
+ClampedNormalDistribution::ClampedNormalDistribution(double _fixed) {
+	setFixed(_fixed);
 }
 
 ClampedNormalDistribution::ClampedNormalDistribution(double _min, double _max, double _mean, double _stddev) {
