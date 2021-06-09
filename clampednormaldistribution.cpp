@@ -13,14 +13,14 @@ void ClampedNormalDistribution::setFixed(double fixed) {
 	primed      = true;
 }
 
-void ClampedNormalDistribution::setParam(double _min, double _max, double mean, double stddev) {
+void ClampedNormalDistribution::setParam(double _min, double _max, double _mean, double stddev) {
 	primed        = true;
-	distribution  = std::normal_distribution<>{mean, stddev};
+	distribution  = std::normal_distribution<>{_mean, stddev};
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator.seed(seed);
 	this->min    = _min;
 	this->max    = _max;
-	this->mean   = mean;
+	this->mean   = _mean;
 	this->stddev = stddev;
 }
 

@@ -6,7 +6,7 @@ class ClampedNormalDistribution {
 	ClampedNormalDistribution(double fixed);
 	ClampedNormalDistribution(double min, double max, double mean, double stddev);
 	void setFixed(double fixed);
-	void setParam(double _min, double _max, double mean, double stddev);
+	void setParam(double _min, double _max, double _mean, double stddev);
 	
 	//we can not copy a random number generator. so just recreate
 	///It should have just been easier to move around a shared_ptr...
