@@ -5,7 +5,7 @@ class ClampedNormalDistribution {
 	ClampedNormalDistribution() = default;
 	ClampedNormalDistribution(double fixed);
 	ClampedNormalDistribution(double min, double max, double mean, double stddev);
-	void setFixed(double fixed);
+	void setFixed(double _fixed);
 	void setParam(double _min, double _max, double _mean, double _stddev);
 
 	//we can not copy a random number generator. so just recreate

@@ -8,8 +8,8 @@ ClampedNormalDistribution::ClampedNormalDistribution(double min, double max, dou
 	setParam(min, max, mean, stddev);
 }
 
-void ClampedNormalDistribution::setFixed(double fixed) {
-	this->fixed = fixed;
+void ClampedNormalDistribution::setFixed(double _fixed) {
+	this->fixed = _fixed;
 	primed      = true;
 }
 
