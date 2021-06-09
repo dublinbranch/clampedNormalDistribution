@@ -4,8 +4,8 @@ ClampedNormalDistribution::ClampedNormalDistribution(double fixed) {
 	setFixed(fixed);
 }
 
-ClampedNormalDistribution::ClampedNormalDistribution(double min, double max, double mean, double stddev) {
-	setParam(min, max, mean, stddev);
+ClampedNormalDistribution::ClampedNormalDistribution(double _min, double max, double mean, double stddev) {
+	setParam(_min, max, mean, stddev);
 }
 
 void ClampedNormalDistribution::setFixed(double _fixed) {
