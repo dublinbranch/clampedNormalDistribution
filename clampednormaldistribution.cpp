@@ -14,14 +14,19 @@ void ClampedNormalDistribution::setFixed(double _fixed) {
 }
 
 void ClampedNormalDistribution::setParam(double _min, double _max, double _mean, double _stddev) {
-	primed        = true;
-	distribution  = std::normal_distribution<>{_mean, _stddev};
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator.seed(seed);
+	primed       = true;
+	distribution = std::normal_distribution<>{_mean, _stddev};
+	//This step is obscenely slow, plus is rarely needed
 	this->min    = _min;
 	this->max    = _max;
 	this->mean   = _mean;
 	this->stddev = _stddev;
+}
+
+void ClampedNormalDistribution::initSeed() const {
+	seeded        = true;
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator.seed(seed);
 }
 
 void ClampedNormalDistribution::operator=(const ClampedNormalDistribution& from) {
@@ -40,6 +45,9 @@ ClampedNormalDistribution::ClampedNormalDistribution(const ClampedNormalDistribu
 double ClampedNormalDistribution::gen() const {
 	if (!primed) {
 		throw "Revenue Share not set";
+	}
+	if (!seeded) {
+		initSeed();
 	}
 	if (fixed) {
 		return fixed;
