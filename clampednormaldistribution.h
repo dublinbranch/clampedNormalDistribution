@@ -16,6 +16,7 @@ class ClampedNormalDistribution {
 	ClampedNormalDistribution(const ClampedNormalDistribution& from);
 
 	double gen() const;
+	~ClampedNormalDistribution();
 
       private:
 	bool primed = false;
@@ -23,7 +24,7 @@ class ClampedNormalDistribution {
 	double fixed = 0;
 	double min = 0, max = 0, mean = 0, stddev = 0;
 	//so this class can be passed around without big problem as const
-	mutable bool                       seeded = false;
-	mutable std::mt19937               generator;
+	mutable bool                       seeded    = false;
+	mutable std::mt19937*              generator = nullptr;
 	mutable std::normal_distribution<> distribution;
 };

@@ -26,7 +26,8 @@ void ClampedNormalDistribution::setParam(double _min, double _max, double _mean,
 void ClampedNormalDistribution::initSeed() const {
 	seeded        = true;
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator.seed(seed);
+	generator     = new (std::mt19937);
+	generator->seed(seed);
 }
 
 void ClampedNormalDistribution::operator=(const ClampedNormalDistribution& from) {
@@ -54,11 +55,16 @@ double ClampedNormalDistribution::gen() const {
 	}
 	double rand = 0;
 	for (uint i = 0; i < 1000; i++) {
-		rand = distribution(generator);
+		rand = distribution(*generator);
 		if (rand <= max && rand >= min) {
 			return rand;
 		}
 	}
 	//if too many try return 0
 	return 0;
+}
+
+ClampedNormalDistribution::~ClampedNormalDistribution() {
+	//I am really doing this ? Time to create a wrapper around xorshiro -.-
+	delete generator;
 }
